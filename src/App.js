@@ -8,6 +8,7 @@ import { Route, Routes } from "react-router-dom";
 import Menu from "./FoodMenu";
 import Snack from "./FoodItem";
 import NotFound from "./NotFound";
+import AddItem from "./AddItem";
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -23,7 +24,8 @@ function App() {
       setIsLoading(false);
     }
     getSnacksAndDrinks();
-  }, []);
+    
+  }, [snacks, drinks]);
 
   if (isLoading) {
     return <p>Loading &hellip;</p>;
@@ -39,11 +41,13 @@ function App() {
             </Route>
             <Route exact path="/snacks" element={<Menu foods={snacks} title="Snacks" />}>
             </Route>
-            <Route path="/snacks/:id" element={<Snack items={snacks} cantFind="/snacks" />}> 
+            <Route exact path="/:type/add" element={<AddItem />}>
+            </Route>
+            <Route exact path="/snacks/:id" element={<Snack items={snacks} />}> 
             </Route>
             <Route exact path="/drinks" element={<Menu foods={drinks} title="Drinks" />}>
             </Route>
-            <Route path="/drinks/:id" element={<Snack items={drinks} cantFind="/drinks" />}> 
+            <Route exact path="/drinks/:id" element={<Snack items={drinks} />}> 
             </Route>
             <Route path="*" element={<NotFound />}>
             </Route>

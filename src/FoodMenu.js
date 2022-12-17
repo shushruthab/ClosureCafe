@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./FoodMenu.css";
 import {
   Card,
@@ -11,6 +11,13 @@ import {
 } from "reactstrap";
 
 function FoodMenu({ foods, title }) {
+    const navigate = useNavigate();
+    let foodtype = title.toLowerCase();
+    const handleClick = (e) => {
+        e.preventDefault();
+        navigate(`/${foodtype}/add`);
+    }
+
   return (
     <section className="col-md-4">
       <Card>
@@ -19,8 +26,7 @@ function FoodMenu({ foods, title }) {
             {title} Menu
           </CardTitle>
           <CardText>
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            Consider this list of {foodtype} to choose from!
           </CardText>
           <ListGroup>
             {foods.map(food => (
@@ -29,6 +35,7 @@ function FoodMenu({ foods, title }) {
               </Link>
             ))}
           </ListGroup>
+          <button onClick={handleClick}>Add an item</button>
         </CardBody>
       </Card>
     </section>

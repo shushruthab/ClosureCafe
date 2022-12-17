@@ -1,26 +1,32 @@
 import React from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { Card, CardBody, CardTitle, CardText } from "reactstrap";
 
 function FoodItem({ items, cantFind }) {
   const { id } = useParams();
   let navigate = useNavigate();
-  let drink = items.find(drink => drink.id === id);
-    if (!drink) navigate("/*");
+  let fooditem = items.find(fooditem => fooditem.id === id);
+    if (!fooditem) {
+        return(
+            <>
+            <Navigate to="/" />
+            </>
+        )
+    }
 
   return (
     <section>
       <Card>
         <CardBody>
           <CardTitle className="font-weight-bold text-center">
-            {drink.name}
+            {fooditem.name}
           </CardTitle>
-          <CardText className="font-italic">{drink.description}</CardText>
+          <CardText className="font-italic">{fooditem.description}</CardText>
           <p>
-            <b>Recipe:</b> {drink.recipe}
+            <b>Recipe:</b> {fooditem.recipe}
           </p>
           <p>
-            <b>Serve:</b> {drink.serve}
+            <b>Serve:</b> {fooditem.serve}
           </p>
         </CardBody>
       </Card>
